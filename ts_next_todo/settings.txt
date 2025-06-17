@@ -1,40 +1,29 @@
 ## 초기 셋팅
 
-
 ```
 npx create-next-app@latest ./
 ```
-
-
 - Default setting
 
-
 ## 앱 시작
-
 
 ```
 npm run dev
 ```
 
-
 ## prisma orm 설치
-
 
 ```
 npm i prisma --save-dev
 ```
 
-
 ## prisma mongodb 연결
-
 
 ```
 npx prisma init --datasource-provider mongodb
 ```
 
-
 ## mongodb
-
 
 - mongodb 접속
 - organizations settings click
@@ -44,10 +33,8 @@ npx prisma init --datasource-provider mongodb
 - next click
 - create project click
 
-
 - name: todo
 - create deployment click
-
 
 - username, password copy
 - click "create databaseuser"
@@ -55,11 +42,9 @@ npx prisma init --datasource-provider mongodb
 - click "drivers"
 - copy bash code
 
-
 ```
 npm install mongodb
 ```
-
 
 - click "done"
 - click "Network Access" on left side menu panel
@@ -75,17 +60,17 @@ npm install mongodb
 - mongodb.net/ + todo
 - delete "&appName=todo"
 
-
 ## prisma 생성 코드
-
 
 ```
 npx prisma generate
 ```
 
+```
+npx prisma db push
+```
 
 ## 샘플 데이터 입력
-
 
 - cluster click
 - connect click
@@ -96,7 +81,3 @@ npx prisma generate
 - add collection and paste copy code
 - check todo database
 - ADD DATA click
-
-
-
-
