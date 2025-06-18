@@ -6,11 +6,11 @@ import { createTodo } from '@/actions';
 
 const AddItems = () => {
   return (
-    <div>
+    <div className='w-10/12 mx-auth flex items-center justify-between bg-slate-900 px-20 py-4 rounded-2xl align-middle'>
       <Form action={createTodo}>
-        <div>
-          <Input />
-          <Button />
+        <div className='flex gap-2 items-center justify-between'>
+          <Input name='input' type='text' placeholder='할 일을 입력해 주세요'/>
+          <Button type='submit' text='add' bgColor="bg-blue-600"/>
         </div>
       </Form>
     </div>
