@@ -13,7 +13,7 @@ export const getProjects = async(
         res.json(projects)
     } catch (error) {
         console.log(error)
-        res.status(500).json({message : 'Internet Server Error'})
+        res.status(500).json({message : 'Internal Server Error'})
     }
 }
 
@@ -34,7 +34,7 @@ export const createProject = async(
         res.status(201).json(newProject)
     } catch (error) {
         console.log(error)
-        res.status(500).json({message : 'Internet Server Error'})
+        res.status(500).json({message : 'Internal Server Error'})
     }
 }
 

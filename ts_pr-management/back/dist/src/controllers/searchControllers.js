@@ -9,36 +9,37 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createProject = exports.getProjects = void 0;
+exports.search = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
-const getProjects = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const search = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { query } = req.query;
     try {
-        const projects = yield prisma.project.findMany();
-        res.json(projects);
-    }
-    catch (error) {
-        console.log(error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-});
-exports.getProjects = getProjects;
-const createProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, description, startDate, endDate } = req.body;
-    try {
-        const newProject = yield prisma.project.create({
-            data: {
-                name,
-                description,
-                startDate,
-                endDate,
+        const tasks = yield prisma.task.findMany({
+            where: {
+                OR: [
+                    { title: { contains: query } },
+                    { description: { contains: query } },
+                ],
             }
         });
-        res.status(201).json(newProject);
+        const projects = yield prisma.project.findMany({
+            where: {
+                OR: [
+                    { name: { contains: query } },
+                    { description: { contains: query } },
+                ],
+            }
+        });
+        const users = yield prisma.user.findMany({
+            where: {
+                OR: [{ username: { contains: query } }],
+            },
+        });
+        res.json({ tasks, projects, users });
     }
     catch (error) {
-        console.log(error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
-exports.createProject = createProject;
+exports.search = search;

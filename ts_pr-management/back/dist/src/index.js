@@ -17,11 +17,19 @@ app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use((0, cors_1.default)());
 const projectRoutes_1 = __importDefault(require("./routes/projectRoutes"));
+const searchRoutes_1 = __importDefault(require("./routes/searchRoutes"));
+const taskRoutes_1 = __importDefault(require("./routes/taskRoutes"));
+const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
+const teamRoutes_1 = __importDefault(require("./routes/teamRoutes"));
 const port = process.env.PORT || 8000;
 app.get("/", (req, res) => {
     res.send("Home Route Running Successfully!!");
 });
 app.use("/projects", projectRoutes_1.default);
+app.use("/search", searchRoutes_1.default);
+app.use("/tasks", taskRoutes_1.default);
+app.use("/users", userRoutes_1.default);
+app.use("/teams", teamRoutes_1.default);
 // test codes here
 app.listen(port, () => {
     console.log(`server is running on port ${port}`);
