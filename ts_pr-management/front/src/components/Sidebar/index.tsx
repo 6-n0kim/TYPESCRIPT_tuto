@@ -15,6 +15,7 @@ import {
   AlertOctagon,
   Layers3,
   ChevronUp,
+  Ham,
 } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -27,11 +28,18 @@ const Sidebar = () => {
   const [showProject, setShowProject] = useState<boolean>(true);
   const [showPriority, setShowPriority] = useState<boolean>(true);
   const dispatch = useAppDispatch();
-  const sidebarClassNames = `fixed flex flex-col h-[100%] justify-between shadow-xl transition-all duration-300 h-full z-40 dark:bg-black overflow-y-auto bg-white`;
 
   const isSidebarCollapsed = useAppSelector(
     (state) => state.global.isSidebarCollapsed
   );
+  const sidebarClassNames = `fixed flex flex-col h-[100%] justify-between shadow-xl transition-all duration-300 h-full z-40 dark:bg-black overflow-y-auto bg-white ${
+    isSidebarCollapsed ? "w-0 hidden" : "w-64"
+  }`;
+
+  const testFunction = () => {
+    dispatch(setIsSidebarCollapsed(!isSidebarCollapsed));
+  };
+
   // console.log(isSidebarCollapsed);
   const { data: Projects } = useGetProjectsQuery();
   // console.log(Projects);
@@ -44,7 +52,11 @@ const Sidebar = () => {
           <div className="text-xl font-bold text-gray-800 dark:text-white">
             PRLIST
           </div>
-          {isSidebarCollapsed ? null : (
+          {isSidebarCollapsed ? (
+            <button className="py-3" onClick={testFunction}>
+              <Ham className="h-6 w-6 text-gray-800 hover:text-gray-500 dark:text-white" />
+            </button>
+          ) : (
             <button
               className="py-3"
               onClick={() => {
@@ -78,18 +90,15 @@ const Sidebar = () => {
           <SidebarLink icon={Users} label="Users" href="/users" />
         </nav>
 
-        <button className="flex w-full items-center justify-between px-8 py-3 text-gray-500">
+        <button
+          className="flex w-full items-center justify-between px-8 py-3 text-gray-500"
+          onClick={() => setShowProject(!showProject)}
+        >
           <span className="">Projects</span>
           {showProject ? (
-            <ChevronUp
-              className="h-5 w-5"
-              onClick={() => setShowProject(!showProject)}
-            />
+            <ChevronUp className="h-5 w-5" />
           ) : (
-            <ChevronDown
-              className="h-5 w-5"
-              onClick={() => setShowProject(!showProject)}
-            />
+            <ChevronDown className="h-5 w-5" />
           )}
         </button>
         {/* Projects List */}

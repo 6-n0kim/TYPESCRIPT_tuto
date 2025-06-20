@@ -1,4 +1,5 @@
 "use client";
+
 import { useRef } from "react";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
@@ -8,7 +9,7 @@ import {
   Provider,
 } from "react-redux";
 import globalReducer from "@/state";
-import { api } from "@/state/api";
+// import { api } from "@/state/api";
 import { setupListeners } from "@reduxjs/toolkit/query";
 // redux-persist 참조: https://kyounghwan01.github.io/blog/React/redux/redux-persist/
 import {
@@ -25,8 +26,29 @@ import {
 } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+import { api } from "@/state/api";
 
-const storage = createWebStorage("local");
+/* REDUX PERSISTENCE */
+// 서버 사이드 렌더링(SSR) 환경에서 localStorage를 사용할 수 없을 때, 이를 대체하기 위한 "무동작(No-op) 스토리지" 객체를 생성
+// window가 존재하는 않는 환경에서 로컬 및 세션 스토리지 사용 불가
+const createNoopStorage = () => {
+  return {
+    getItem(_key: any) {
+      return Promise.resolve(null);
+    },
+    setItem(_key: any, value: any) {
+      return Promise.resolve(value);
+    },
+    removeItem(_key: any) {
+      return Promise.resolve();
+    },
+  };
+};
+
+const storage =
+  typeof window === "undefined"
+    ? createNoopStorage() // 서버 사이드에서는 무동작 스토리지 객체 반환
+    : createWebStorage("local"); // 브라우저 환경에서는 실제 localStorage 객체 반환
 
 const persistConfig = {
   key: "root",
@@ -39,7 +61,7 @@ const persistConfig = {
 
 export const rootReducer = combineReducers({
   global: globalReducer,
-  [api.reducerPath]: api.reducer,
+  [api.reducerPath]: api.reducer, // api.reducerPath는 리덕스 툴킷의 쿼리 미들웨어에서 사용하는 고유한 키. 이 키를 사용하여 쿼리 미들웨어가 데이터를 캐시하고 관리함.
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -53,7 +75,7 @@ export const makeStore = () => {
         serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
-      }).concat(api.middleware), // api.reducerPath는 리덕스 툴킷의 쿼리 미들웨어에서 사용하는 고유한 키. 이 키를 사용하여 쿼리 미들웨어가 데이터를 캐시하고 관리함.
+      }).concat(api.middleware),
   });
 };
 

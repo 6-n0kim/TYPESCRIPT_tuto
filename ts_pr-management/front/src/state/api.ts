@@ -9,7 +9,7 @@ export interface Project {
 }
 
 export enum Priority {
-  Ugent = 'Urgent',
+  Urgent = 'Urgent',
   High = 'High',
   Medium = 'Medium',
   Low = 'Low',
@@ -111,9 +111,9 @@ export const api = createApi({
 });
 
 export const {
-  useGetProjectsQuery,
   useCreateProjectMutation,
   useCreateTaskMutation,
   useGetTasksQuery,
   useUpdateTaskStatusMutation,
+  useGetProjectsQuery,
 } = api;
