@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getTeams } from '../controllers/teamControllers';
+import { getTeams } from '../constrollers/teamControllers';
 
 const router = Router();
 

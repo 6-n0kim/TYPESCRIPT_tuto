@@ -1,15 +1,15 @@
-import React, { useMemo, useState } from "react";
-import { useAppSelector } from "@/app/redux";
-import { useGetTasksQuery } from "@/state/api";
-import { DisplayOption, Gantt, ViewMode } from "gantt-task-react";
-import "gantt-task-react/dist/index.css";
+import React, { useMemo, useState } from 'react';
+import { useAppSelector } from '@/app/redux';
+import { useGetTasksQuery } from '@/state/api';
+import { DisplayOption, Gantt, ViewMode } from 'gantt-task-react';
+import 'gantt-task-react/dist/index.css';
 
 type Props = {
   id: string;
   setIsModalNewTaskOpen: (isOpen: boolean) => void;
 };
 
-type TaskTypeItems = "task" | "milestone" | "project";
+type TaskTypeItems = 'task' | 'milestone' | 'project';
 
 const TimelineView = ({ id, setIsModalNewTaskOpen }: Props) => {
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
@@ -21,7 +21,7 @@ const TimelineView = ({ id, setIsModalNewTaskOpen }: Props) => {
 
   const [displayOptions, setDisplayOptions] = useState<DisplayOption>({
     viewMode: ViewMode.Month,
-    locale: "en-US",
+    locale: 'en-US',
   });
 
   const ganttTasks = useMemo(() => {
@@ -31,7 +31,7 @@ const TimelineView = ({ id, setIsModalNewTaskOpen }: Props) => {
         end: new Date(task.dueDate as string),
         name: task.title,
         id: `Task-${task.id}`,
-        type: "task" as TaskTypeItems,
+        type: 'task' as TaskTypeItems,
         progress: task.points ? (task.points / 10) * 100 : 0,
         isDisabled: false,
       })) || []
@@ -76,8 +76,8 @@ const TimelineView = ({ id, setIsModalNewTaskOpen }: Props) => {
             {...displayOptions}
             columnWidth={displayOptions.viewMode === ViewMode.Month ? 150 : 100}
             listCellWidth="100px"
-            barBackgroundColor={isDarkMode ? "#101214" : "#aeb8c2"}
-            barBackgroundSelectedColor={isDarkMode ? "#000" : "#9ba1a6"}
+            barBackgroundColor={isDarkMode ? '#101214' : '#aeb8c2'}
+            barBackgroundSelectedColor={isDarkMode ? '#000' : '#9ba1a6'}
           />
         </div>
         <div className="px-4 pb-5 pt-1">

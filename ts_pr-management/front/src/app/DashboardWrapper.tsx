@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Sidebar from "@/components/Sidebar";
-import React, { useEffect } from "react";
-import StoreProvider, { useAppSelector } from "./redux";
-import Navbar from "@/components/Navbar";
+import Sidebar from '@/components/Sidebar';
+import React, { useEffect } from 'react';
+import StoreProvider, { useAppSelector } from './redux';
+import Navbar from '@/components/Navbar';
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const isSidebarCollapsed = useAppSelector(
@@ -13,9 +13,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (!isDarkMode) {
-      document.documentElement.classList.add("dark");
+      document.documentElement.classList.add('dark');
     } else {
-      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.remove('dark');
     }
   }, [isDarkMode]);
 
@@ -24,7 +24,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <Sidebar />
       <main
         className={`flex w-full flex-col bg-gray-50 dark:bg-gray-900 ${
-          isSidebarCollapsed ? "" : "md:pl-64"
+          isSidebarCollapsed ? '' : 'md:pl-64'
         }`}
       >
         {/* navbar */}

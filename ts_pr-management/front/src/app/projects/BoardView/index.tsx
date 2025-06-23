@@ -1,18 +1,18 @@
-import { useGetTasksQuery, useUpdateTaskStatusMutation } from "@/state/api";
-import React from "react";
-import { DndProvider, useDrag, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { Task as TaskType } from "@/state/api";
-import { EllipsisVertical, MessageSquareMore, Plus } from "lucide-react";
-import { format } from "date-fns";
-import Image from "next/image";
+import { useGetTasksQuery, useUpdateTaskStatusMutation } from '@/state/api';
+import React from 'react';
+import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { Task as TaskType } from '@/state/api';
+import { EllipsisVertical, MessageSquareMore, Plus } from 'lucide-react';
+import { format } from 'date-fns';
+import Image from 'next/image';
 
 type BoardProps = {
   id: string;
   setIsModalNewTaskOpen: (isOpen: boolean) => void;
 };
 
-const taskStatus = ["To Do", "Work In Progress", "Under Review", "Completed"];
+const taskStatus = ['To Do', 'Work In Progress', 'Under Review', 'Completed'];
 
 const BoardView = ({ id, setIsModalNewTaskOpen }: BoardProps) => {
   const {
@@ -62,7 +62,7 @@ const TaskColumn = ({
 }: // setIsModalNewTaskOpen,
 TaskCoumnProps) => {
   const [{ isOver }, drop] = useDrop(() => ({
-    accept: "task",
+    accept: 'task',
     drop: (item: { id: number }) => moveTask(item.id, status),
     collect: (monitor: any) => ({
       isOver: !!monitor.isOver(), // !!: 일반적으로 true 또는 false를 반환하지만, 혹시라도 undefined 또는 다른 truthy/falsy한 값이 반환될 가능성이 있다면, 이를 확실한 Boolean 값으로 변환하기 위해 !!을 사용
@@ -76,10 +76,10 @@ TaskCoumnProps) => {
   // console.log(status);
 
   const statusColor: any = {
-    "To Do": "#2563eb",
-    "Work In Progress": "#059669",
-    "Under Review": "#d97706",
-    Completed: "#000000",
+    'To Do': '#2563eb',
+    'Work In Progress': '#059669',
+    'Under Review': '#d97706',
+    Completed: '#000000',
   };
 
   return (
@@ -88,7 +88,7 @@ TaskCoumnProps) => {
         drop(instance);
       }}
       className={`sl:py-4 rounded-lg py-2 xl:px-2 ${
-        isOver ? "bg-blue-100 dark:bg-neutral-950" : ""
+        isOver ? 'bg-blue-100 dark:bg-neutral-950' : ''
       }`}
     >
       <div className="mb-3 flex w-full">
@@ -98,10 +98,10 @@ TaskCoumnProps) => {
         ></div>
         <div className="flex w-full items-center justify-between rounded-e-lg bg-white px-5 py-4 dark:bg-dark-secondary">
           <h3 className="flex items-center text-lg font-semibold dark:text-white">
-            {status}{" "}
+            {status}{' '}
             <span
               className="ml-2 inline-block rounded-full bg-gray-200 p-1 text-center text-sm leading-none dark:bg-dark-tertiary"
-              style={{ width: "1.5rem", height: "1.5rem" }}
+              style={{ width: '1.5rem', height: '1.5rem' }}
             >
               {tasksCount}
             </span>
@@ -134,37 +134,37 @@ type TaskProps = {
 
 const Task = ({ task }: TaskProps) => {
   const [{ isDragging }, drag] = useDrag(() => ({
-    type: "task",
+    type: 'task',
     item: { id: task.id },
     collect: (monitor: any) => ({
       isDragging: !!monitor.isDragging(),
     }),
   }));
 
-  const taskTagsSplit = task.tags ? task.tags.split(",") : [];
+  const taskTagsSplit = task.tags ? task.tags.split(',') : [];
 
   const formattedStartDate = task.startDate
-    ? format(new Date(task.startDate), "P")
-    : "";
+    ? format(new Date(task.startDate), 'P')
+    : '';
 
   const formattedDueDate = task.dueDate
-    ? format(new Date(task.dueDate), "P") // P: 날짜 형식 - yyyy-MM-dd
-    : "";
+    ? format(new Date(task.dueDate), 'P') // P: 날짜 형식 - yyyy-MM-dd
+    : '';
 
   const numberOfComments = (task.comments && task.comments.length) || 0;
 
-  const PriorityTag = ({ priority }: { priority: TaskType["priority"] }) => (
+  const PriorityTag = ({ priority }: { priority: TaskType['priority'] }) => (
     <div
       className={`rounded-full px-2 py-1 text-xs font-semibold ${
-        priority === "Urgent"
-          ? "bg-red-200 text-red-700"
-          : priority === "High"
-          ? "trext-yellow-700 bg-yellow-200"
-          : priority === "Medium"
-          ? "bg-green-200 text-green-700"
-          : priority === "Low"
-          ? "bg-gray-200 text-gray-700"
-          : ""
+        priority === 'Urgent'
+          ? 'bg-red-200 text-red-700'
+          : priority === 'High'
+          ? 'trext-yellow-700 bg-yellow-200'
+          : priority === 'Medium'
+          ? 'bg-green-200 text-green-700'
+          : priority === 'Low'
+          ? 'bg-gray-200 text-gray-700'
+          : ''
       }`}
     >
       {priority}
@@ -177,7 +177,7 @@ const Task = ({ task }: TaskProps) => {
         drag(instance);
       }}
       className={`mb-4 rounded-md bg-white shadow dark:bg-dark-secondary ${
-        isDragging ? "opacity-50" : "opacity-100"
+        isDragging ? 'opacity-50' : 'opacity-100'
       }`}
     >
       {task.attachments && task.attachments.length > 0 && (
@@ -199,7 +199,7 @@ const Task = ({ task }: TaskProps) => {
                   key={tag}
                   className="rounded-full bg-blue-100 px-2 py-1 text-xs"
                 >
-                  {" "}
+                  {' '}
                   {tag}
                 </div>
               ))}
@@ -211,7 +211,7 @@ const Task = ({ task }: TaskProps) => {
         </div>
         <div className="my-3 flex justify-between">
           <h4 className="text-md font-bold dark:text-white">{task.title}</h4>
-          {typeof task.points === "number" && (
+          {typeof task.points === 'number' && (
             <div className="text-xs font-semibold dark:text-white">
               {task.points} pts
             </div>

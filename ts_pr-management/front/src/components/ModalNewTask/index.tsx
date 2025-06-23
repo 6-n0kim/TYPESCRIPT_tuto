@@ -3,10 +3,10 @@ import {
   Status,
   useCreateTaskMutation,
   useGetProjectsQuery,
-} from "@/state/api";
-import { formatISO } from "date-fns";
-import React, { useState } from "react";
-import Modal from "../Modal";
+} from '@/state/api';
+import { formatISO } from 'date-fns';
+import React, { useState } from 'react';
+import Modal from '../Modal';
 
 type Props = {
   isOpen: boolean;
@@ -15,16 +15,16 @@ type Props = {
 
 const ModalNewTask = ({ isOpen, onClose }: Props) => {
   const [createTask] = useCreateTaskMutation();
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [status, setStatus] = useState<Status>(Status.ToDo);
   const [priority, setPriority] = useState<Priority>(Priority.Backlog);
-  const [tags, setTags] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [dueDate, setDueDate] = useState("");
-  const [projectId, setProjectId] = useState("1");
-  const [authorUserId, setAuthorUserId] = useState("2");
-  const [assignedUserId, setAssignedUserId] = useState("3");
+  const [tags, setTags] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [dueDate, setDueDate] = useState('');
+  const [projectId, setProjectId] = useState('1');
+  const [authorUserId, setAuthorUserId] = useState('2');
+  const [assignedUserId, setAssignedUserId] = useState('3');
 
   // const {data: Projects } = useGetProjectsQuery();
 
@@ -32,11 +32,11 @@ const ModalNewTask = ({ isOpen, onClose }: Props) => {
     if (!title) return;
 
     const formattedStartDate = formatISO(new Date(startDate), {
-      representation: "complete", // 날짜와 시간을 포함한 완전한 형식을 사용
+      representation: 'complete', // 날짜와 시간을 포함한 완전한 형식을 사용
     });
 
     const formattedEndDate = formatISO(new Date(dueDate), {
-      representation: "complete",
+      representation: 'complete',
     });
 
     await createTask({
@@ -60,10 +60,10 @@ const ModalNewTask = ({ isOpen, onClose }: Props) => {
   };
 
   const selectStyles =
-    "mb-4 block w-full rounded border border-gray-300 px-3 py-2 dark:border-dark-tertiary dark:bg-dark-tertiary dark:text-white dark:focus:outline-none";
+    'mb-4 block w-full rounded border border-gray-300 px-3 py-2 dark:border-dark-tertiary dark:bg-dark-tertiary dark:text-white dark:focus:outline-none';
 
   const inputStyles =
-    "w-full rounded border border-gray-300 p-2 shadow-sm dark:border-dark-tertiary dark:bg-dark-tertiary dark:text-white dark:focus:ouline-none";
+    'w-full rounded border border-gray-300 p-2 shadow-sm dark:border-dark-tertiary dark:bg-dark-tertiary dark:text-white dark:focus:ouline-none';
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} name="Create New Task">
@@ -141,7 +141,7 @@ const ModalNewTask = ({ isOpen, onClose }: Props) => {
         <button
           type="submit"
           className={`focus-offset-2 mt-4 flex w-full justify-center rounded-md border border-transparent bg-blue-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 ${
-            !isFormValid() ? "cursor-not-allowed opacity-50" : ""
+            !isFormValid() ? 'cursor-not-allowed opacity-50' : ''
           }`}
           disabled={!isFormValid()}
         >

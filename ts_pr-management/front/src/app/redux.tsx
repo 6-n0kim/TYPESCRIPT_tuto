@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useRef } from "react";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { useRef } from 'react';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import {
   TypedUseSelectorHook,
   useDispatch,
   useSelector,
   Provider,
-} from "react-redux";
-import globalReducer from "@/state";
+} from 'react-redux';
+import globalReducer from '@/state';
 // import { api } from "@/state/api";
-import { setupListeners } from "@reduxjs/toolkit/query";
+import { setupListeners } from '@reduxjs/toolkit/query';
 // redux-persist 참조: https://kyounghwan01.github.io/blog/React/redux/redux-persist/
 import {
   persistStore, // 리덕스 스토어를 퍼시스트 가능하게 만드는 함수. 이 함수로 생성된 퍼시스터(persistor)는 스토어 상태를 저장소(localStorage 등)에 저장하고 복원함.
@@ -23,10 +23,10 @@ import {
   PERSIST, // 퍼시스트를 시작하는 액션 타입 (persistStore 호출 시 발생)
   PURGE, // 저장소에 저장된 persisted state를 모두 제거하라는 액션 타입
   REGISTER, // persistReducer가 등록되었음을 알리는 액션 타입
-} from "redux-persist";
-import { PersistGate } from "redux-persist/integration/react";
-import createWebStorage from "redux-persist/lib/storage/createWebStorage";
-import { api } from "@/state/api";
+} from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
+import { api } from '@/state/api';
 
 /* REDUX PERSISTENCE */
 // 서버 사이드 렌더링(SSR) 환경에서 localStorage를 사용할 수 없을 때, 이를 대체하기 위한 "무동작(No-op) 스토리지" 객체를 생성
@@ -46,16 +46,16 @@ const createNoopStorage = () => {
 };
 
 const storage =
-  typeof window === "undefined"
+  typeof window === 'undefined'
     ? createNoopStorage() // 서버 사이드에서는 무동작 스토리지 객체 반환
-    : createWebStorage("local"); // 브라우저 환경에서는 실제 localStorage 객체 반환
+    : createWebStorage('local'); // 브라우저 환경에서는 실제 localStorage 객체 반환
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   // localStorage에 저장합니다.
   storage,
   // global reducer만 localstorage에 저장합니다.
-  whitelist: ["global"],
+  whitelist: ['global'],
   // blacklist -> 그것만 제외합니다
 };
 
@@ -81,8 +81,8 @@ export const makeStore = () => {
 
 // 리덕스 타입 정의
 export type AppStore = ReturnType<typeof makeStore>;
-export type RootState = ReturnType<AppStore["getState"]>;
-export type AppDispatch = AppStore["dispatch"];
+export type RootState = ReturnType<AppStore['getState']>;
+export type AppDispatch = AppStore['dispatch'];
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

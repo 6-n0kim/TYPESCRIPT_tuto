@@ -1,4 +1,5 @@
-"use client";
+'use client';
+
 import {
   LockIcon,
   X,
@@ -15,14 +16,13 @@ import {
   AlertOctagon,
   Layers3,
   ChevronUp,
-  Ham,
-} from "lucide-react";
-import Image from "next/image";
-import React, { useState } from "react";
-import SidebarLink from "./SidebarLink";
-import { useGetProjectsQuery } from "@/state/api";
-import { useAppDispatch, useAppSelector } from "@/app/redux";
-import { setIsSidebarCollapsed } from "@/state";
+} from 'lucide-react';
+import Image from 'next/image';
+import React, { useState } from 'react';
+import SidebarLink from './SidebarLink';
+import { useGetProjectsQuery } from '@/state/api';
+import { useAppDispatch, useAppSelector } from '@/app/redux';
+import { setIsSidebarCollapsed } from '@/state';
 
 const Sidebar = () => {
   const [showProject, setShowProject] = useState<boolean>(true);
@@ -32,17 +32,14 @@ const Sidebar = () => {
   const isSidebarCollapsed = useAppSelector(
     (state) => state.global.isSidebarCollapsed
   );
-  const sidebarClassNames = `fixed flex flex-col h-[100%] justify-between shadow-xl transition-all duration-300 h-full z-40 dark:bg-black overflow-y-auto bg-white ${
-    isSidebarCollapsed ? "w-0 hidden" : "w-64"
-  }`;
-
-  const testFunction = () => {
-    dispatch(setIsSidebarCollapsed(!isSidebarCollapsed));
-  };
-
   // console.log(isSidebarCollapsed);
+
   const { data: Projects } = useGetProjectsQuery();
   // console.log(Projects);
+
+  const sidebarClassNames = `fixed flex flex-col h-[100%] justify-between shadow-xl transition-all duration-300 h-full z-40 dark:bg-black overflow-y-auto bg-white ${
+    isSidebarCollapsed ? 'w-0 hidden' : 'w-64'
+  }`;
 
   return (
     <div className={sidebarClassNames}>
@@ -52,11 +49,7 @@ const Sidebar = () => {
           <div className="text-xl font-bold text-gray-800 dark:text-white">
             PRLIST
           </div>
-          {isSidebarCollapsed ? (
-            <button className="py-3" onClick={testFunction}>
-              <Ham className="h-6 w-6 text-gray-800 hover:text-gray-500 dark:text-white" />
-            </button>
-          ) : (
+          {isSidebarCollapsed ? null : (
             <button
               className="py-3"
               onClick={() => {
@@ -95,6 +88,7 @@ const Sidebar = () => {
           onClick={() => setShowProject(!showProject)}
         >
           <span className="">Projects</span>
+
           {showProject ? (
             <ChevronUp className="h-5 w-5" />
           ) : (
@@ -125,6 +119,7 @@ const Sidebar = () => {
             <ChevronDown className="h-5 w-5" />
           )}
         </button>
+
         {showPriority && (
           <>
             <SidebarLink

@@ -15,11 +15,11 @@ datasource db {
 }
 
 model User {
-  userId            Int     @id @default(autoincrement())
-  cognitoId         String  @unique
-  username          String  @unique
-  profilePictureUrl String?
-  teamId            Int?
+  userId                Int     @id @default(autoincrement())
+  cognitoId             String  @unique
+  username              String  @unique
+  profilePictureUrl     String?
+  teamId                Int?
 
   authoredTasks   Task[]           @relation("TaskAuthor")
   assignedTasks   Task[]           @relation("TaskAssignee")
@@ -30,48 +30,48 @@ model User {
 }
 
 model Team {
-  id                   Int    @id @default(autoincrement())
-  teamName             String
-  productOwnerUserId   Int?
-  projectManagerUserId Int?
+  id                    Int     @id @default(autoincrement())
+  teamName              String
+  productOwnerUserId    Int?
+  projectManagerUserId  Int?
 
-  projectTeams ProjectTeam[]
-  user         User[]
+  projectTeams         ProjectTeam[]
+  user                 User[]
 }
 
 model Project {
-  id          Int       @id @default(autoincrement())
-  name        String
-  description String?
-  startDate   DateTime?
-  endDate     DateTime?
+  id                    Int     @id @default(autoincrement())
+  name                  String
+  description           String?
+  startDate             DateTime?
+  endDate               DateTime?
 
-  tasks        Task[]
-  projectTeams ProjectTeam[]
+  tasks         Task[]
+  projectTeams  ProjectTeam[]
 }
 
 model ProjectTeam {
-  id        Int @id @default(autoincrement())
-  teamId    Int
-  projectId Int
+  id                    Int     @id @default(autoincrement())
+  teamId                Int
+  projectId             Int
 
-  team    Team    @relation(fields: [teamId], references: [id])
-  project Project @relation(fields: [projectId], references: [id])
+  team      Team    @relation(fields: [teamId], references: [id])
+  project   Project @relation(fields: [projectId], references: [id])
 }
 
 model Task {
-  id             Int       @id @default(autoincrement())
-  title          String
-  description    String?
-  status         String?
-  priority       String?
-  tags           String?
-  startDate      DateTime?
-  dueDate        DateTime?
-  points         Int?
-  projectId      Int
-  authorUserId   Int
-  assignedUserId Int?
+  id                    Int     @id @default(autoincrement())
+  title                 String
+  description           String?
+  status                String?
+  priority              String?
+  tags                  String?
+  startDate             DateTime?
+  dueDate               DateTime?
+  points                Int?
+  projectId             Int
+  authorUserId          Int
+  assignedUserId        Int?
 
   project         Project          @relation(fields: [projectId], references: [id])
   author          User             @relation("TaskAuthor", fields: [authorUserId], references: [userId])
@@ -82,30 +82,30 @@ model Task {
 }
 
 model TaskAssignment {
-  id     Int @id @default(autoincrement())
-  userId Int
-  taskId Int
+  id                    Int      @id @default(autoincrement())
+  userId                Int
+  taskId                Int
 
   user User @relation(fields: [userId], references: [userId])
   task Task @relation(fields: [taskId], references: [id])
 }
 
 model Attachment {
-  id           Int     @id @default(autoincrement())
-  fileURL      String
-  fileName     String?
-  taskId       Int
-  uploadedById Int
+  id                    Int      @id @default(autoincrement())
+  fileURL               String
+  fileName              String?
+  taskId                Int
+  uploadedById          Int
 
   task       Task @relation(fields: [taskId], references: [id])
   uploadedBy User @relation(fields: [uploadedById], references: [userId])
 }
 
 model Comment {
-  id     Int    @id @default(autoincrement())
-  text   String
-  taskId Int
-  userId Int
+  id                    Int     @id @default(autoincrement())
+  text                  String
+  taskId                Int
+  userId                Int
 
   task Task @relation(fields: [taskId], references: [id])
   user User @relation(fields: [userId], references: [userId])

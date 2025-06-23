@@ -1,7 +1,7 @@
-import { Task } from "@/state/api";
-import { format } from "date-fns";
-import Image from "next/image";
-import React from "react";
+import { Task } from '@/state/api';
+import { format } from 'date-fns';
+import Image from 'next/image';
+import React from 'react';
 
 type Props = {
   task: Task;
@@ -33,8 +33,8 @@ const TaskCard = ({ task }: Props) => {
         <strong>Title:</strong> {task.title}
       </p>
       <p>
-        <strong>Description:</strong>{" "}
-        {task.description || "No description provided"}
+        <strong>Description:</strong>{' '}
+        {task.description || 'No description provided'}
       </p>
       <p>
         <strong>Status:</strong> {task.status}
@@ -43,23 +43,23 @@ const TaskCard = ({ task }: Props) => {
         <strong>Priority:</strong> {task.priority}
       </p>
       <p>
-        <strong>Tags:</strong> {task.tags || "No tags"}
+        <strong>Tags:</strong> {task.tags || 'No tags'}
       </p>
       <p>
-        <strong>Start Date:</strong>{" "}
-        {task.startDate ? format(new Date(task.startDate), "P") : "Not set"}
+        <strong>Start Date:</strong>{' '}
+        {task.startDate ? format(new Date(task.startDate), 'P') : 'Not set'}
       </p>
       <p>
-        <strong>Due Date:</strong>{" "}
-        {task.dueDate ? format(new Date(task.dueDate), "P") : "Not set"}
+        <strong>Due Date:</strong>{' '}
+        {task.dueDate ? format(new Date(task.dueDate), 'P') : 'Not set'}
       </p>
       <p>
-        <strong>Author:</strong>{" "}
-        {task.author ? task.author.username : "Unknown"}
+        <strong>Author:</strong>{' '}
+        {task.author ? task.author.username : 'Unknown'}
       </p>
       <p>
-        <strong>Assignee:</strong>{" "}
-        {task.assignee ? task.assignee.username : "Unassigned"}
+        <strong>Assignee:</strong>{' '}
+        {task.assignee ? task.assignee.username : 'Unassigned'}
       </p>
     </div>
   );
